@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "src/types",
+    "module": "NodeNext", // 或 ESNext
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "nativewind-env.d.ts",
+    "babel-plugin-module-resolver",
+  ]
+}
