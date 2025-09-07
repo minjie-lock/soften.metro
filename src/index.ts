@@ -1,1 +1,1 @@
-export { default as SoftenNativeMetro } from '@/metro';
+export { default as SoftenNativeMetro } from './metro';

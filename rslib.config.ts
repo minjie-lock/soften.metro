@@ -5,8 +5,8 @@ export default defineConfig({
   source: {
     entry: {
       index: [
-        './src/index.ts',
-        './src/metro/index.ts',
+        './src/**/*',
+        // './src/metro/index.ts',
       ],
     },
   },

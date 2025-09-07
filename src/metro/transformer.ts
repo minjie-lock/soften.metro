@@ -1,44 +1,43 @@
-
-const BabelTransformer = require('@react-native/metro-babel-transformer');
+import BabelTransformer from '@react-native/metro-babel-transformer';
 const imported = new Set();
 
 const components = {
   'safe-area-view': 'SafeAreaView',
   'activity-indicator': 'ActivityIndicator',
-  button: 'Button',
+  'button': 'Button',
   'flat-list': 'FlatList',
-  image: 'Image',
+  'image': 'Image',
   'image-background': 'ImageBackground',
   'keyboard-avoiding': 'keyboard-avoiding',
-  modal: 'Modal',
-  pressable: 'Pressable',
-  refresh: 'RefreshControl',
+  'modal': 'Modal',
+  'pressable': 'Pressable',
+  'refresh': 'RefreshControl',
   'scroll-view': 'ScrollView',
-  section: 'SectionList',
+  'section': 'SectionList',
   'status-bar': 'StatusBar',
-  text: 'Text',
-  input: 'TextInput',
+  'text': 'Text',
+  'input': 'TextInput',
   'touchable-highlight': 'TouchableHighlight',
   'touchable-opacity': 'TouchableOpacity',
   'touchable-without-feedback': 'TouchableWithoutFeedback',
-  view: 'View',
+  'view': 'View',
   'virtualized-list': 'VirtualizedList',
   'drawer-layout': 'DrawerLayoutAndroid',
   'touchable-native-feedback': 'TouchableNativeFeedback',
   'input-accessory': 'InputAccessoryView',
 };
 
-const createEffect = ({ types }) => {
+const createEffect = ({ types }: { types: any }) => {
   return {
     visitor: {
       /**
        * 处理 JSXOpeningElement (例如 <view>)
        */
-      JSXOpeningElement(path) {
+      JSXOpeningElement(path: any) {
         if (types.isJSXIdentifier(path.node.name)) {
           const node = path.node.name;
           const key = node.name;
-          const name = components?.[key];
+          const name = components?.[key as keyof typeof components];
           if (name) {
             node.name = name;
             if (!imported?.has(name)) {
@@ -51,17 +50,17 @@ const createEffect = ({ types }) => {
       /**
        * 处理 JSXClosingElement (例如 </view>)
        */
-      JSXClosingElement(path) {
+      JSXClosingElement(path: any) {
         if (types.isJSXIdentifier(path.node.name)) {
           const node = path.node.name;
-          const key = node.name;
+          const key = node.name as keyof typeof components;
           if (components?.[key]) {
             node.name = components?.[key];
           }
         }
       },
       Program: {
-        exit: (path) => {
+        exit: (path: any) => {
           const importStatements = [...imported].map((component) =>
             types.importDeclaration(
               [
@@ -78,8 +77,8 @@ const createEffect = ({ types }) => {
   };
 };
 
-module.exports = {
-  transform: async ({ src, filename, options }) => {
+const transformer = {
+  transform: async ({ src, filename, options }: { src: string; filename: string; options: any }) => {
     const should = !filename.includes('node_modules') &&
       /\.(jsx|tsx)$/.test(filename);
 
@@ -101,9 +100,11 @@ module.exports = {
           sourceMaps: options.sourceMaps,
           sourceFileName: filename,
         },
-      });
+      } as any);
       return result;
     }
     return BabelTransformer.transform({ src, filename, options });
   },
 };
+
+export default transformer;
