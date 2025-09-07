@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "@soften/react-native",
+      "name": "@soften/transform",
       "dependencies": {
         "@react-native/metro-config": "^0.80.1",
         "metro-babel-transformer": "^0.82.4",
