@@ -2,7 +2,7 @@
   "name": "@soften/metro",
   "version": "0.0.1",
   "private": false,
-  "description": "Soften 集成 tailwincss 样式和自动引入基础组件",
+  "description": "Soften/Metro 剔除繁琐的基础组件",
   "homepage": "https://github.com/minjie-lock/soften.metro#readme",
   "bugs": {
     "url": "https://github.com/minjie-lock/soften.metro/issues"

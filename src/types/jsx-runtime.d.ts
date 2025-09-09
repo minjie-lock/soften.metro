@@ -194,6 +194,6 @@ export namespace JSX {
      * @kind 仅在 IOS 有效
      * @see https://reactnative.dev/docs/safeareaview
     */
-    'safe-area-view': SafeAreaViewComponent & Attributes;
+    'safe-area-view': React.ComponentProps<typeof SafeAreaViewComponent> & Attributes;
   }
 }
