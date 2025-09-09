@@ -1,4 +1,4 @@
-import BabelTransformer from '@react-native/metro-babel-transformer';
+const BabelTransformer = require('@react-native/metro-babel-transformer');
 const imported = new Set();
 
 const components = {
@@ -27,17 +27,17 @@ const components = {
   'input-accessory': 'InputAccessoryView',
 };
 
-const createEffect = ({ types }: { types: any }) => {
+const createEffect = ({ types }) => {
   return {
     visitor: {
       /**
        * 处理 JSXOpeningElement (例如 <view>)
        */
-      JSXOpeningElement(path: any) {
+      JSXOpeningElement(path) {
         if (types.isJSXIdentifier(path.node.name)) {
           const node = path.node.name;
           const key = node.name;
-          const name = components?.[key as keyof typeof components];
+          const name = components?.[key];
           if (name) {
             node.name = name;
             if (!imported?.has(name)) {
@@ -50,17 +50,17 @@ const createEffect = ({ types }: { types: any }) => {
       /**
        * 处理 JSXClosingElement (例如 </view>)
        */
-      JSXClosingElement(path: any) {
+      JSXClosingElement(path) {
         if (types.isJSXIdentifier(path.node.name)) {
           const node = path.node.name;
-          const key = node.name as keyof typeof components;
+          const key = node.name;
           if (components?.[key]) {
             node.name = components?.[key];
           }
         }
       },
       Program: {
-        exit: (path: any) => {
+        exit: (path) => {
           const importStatements = [...imported].map((component) =>
             types.importDeclaration(
               [
@@ -78,7 +78,7 @@ const createEffect = ({ types }: { types: any }) => {
 };
 
 const transformer = {
-  transform: async ({ src, filename, options }: { src: string; filename: string; options: any }) => {
+  transform: async ({ src, filename, options }) => {
     const should = !filename.includes('node_modules') &&
       /\.(jsx|tsx)$/.test(filename);
 
@@ -100,11 +100,11 @@ const transformer = {
           sourceMaps: options.sourceMaps,
           sourceFileName: filename,
         },
-      } as any);
+      });
       return result;
     }
     return BabelTransformer.transform({ src, filename, options });
   },
 };
 
-export default transformer;
+module.exports = transformer;

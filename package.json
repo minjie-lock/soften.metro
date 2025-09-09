@@ -1,30 +1,25 @@
 {
-  "name": "@soften/transform",
+  "name": "@soften/metro",
   "version": "0.0.1",
   "private": false,
   "description": "Soften 集成 tailwincss 样式和自动引入基础组件",
-  "homepage": "https://github.com/minjie-lock/soften.transform#readme",
+  "homepage": "https://github.com/minjie-lock/soften.metro#readme",
   "bugs": {
-    "url": "https://github.com/minjie-lock/soften.transform/issues"
+    "url": "https://github.com/minjie-lock/soften.metro/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/minjie-lock/soften.transform.git"
+    "url": "git+https://github.com/minjie-lock/soften.metro.git"
   },
   "license": "ISC",
   "author": "Lock <https://github.com/minjie-lock>",
-  "type": "module",
-  "main": "./dist/index.cjs",
+  "type": "commonjs",
+  "main": "./src/index.js",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
-    },
-    "./metro": {
-      "types": "./dist/src/metro/index.d.ts",
-      "require": "./dist/metro/index.js",
-      "import": "./dist/metro/index.mjs"
+      "types": "./src/index.d.ts",
+      "require": "./src/index.js",
+      "import": "./src/index.mjs"
     },
     "./jsx-runtime": {
       "types": "./src/types/index.d.ts"
@@ -34,10 +29,8 @@
     }
   },
   "files": [
-    "dist/",
     "tsconfig.json",
-    "src/types",
-    "src/metro/transformer.ts"
+    "src/"
   ],
   "scripts": {
     "lint": "eslint .",
@@ -48,7 +41,8 @@
   },
   "dependencies": {
     "metro-babel-transformer": "^0.82.4",
-    "@react-native/metro-config": "^0.80.1"
+    "@react-native/metro-config": "^0.80.1",
+    "@react-native/metro-babel-transformer": "^0.80.1"
   },
   "peerDependencies": {
     "babel-plugin-module-resolver": "^5.0.2",
@@ -59,7 +53,6 @@
     "@babel/preset-typescript": "^7.27.1"
   },
   "devDependencies": {
-    "@react-native/metro-babel-transformer": "^0.80.1",
     "@rsbuild/plugin-react": "^1.3.4",
     "@rslib/core": "^0.10.6",
     "@types/jest": "^30.0.0",

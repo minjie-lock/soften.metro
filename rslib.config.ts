@@ -6,7 +6,6 @@ export default defineConfig({
     entry: {
       index: [
         './src/**/*',
-        // './src/metro/index.ts',
       ],
     },
   },
@@ -24,19 +23,6 @@ export default defineConfig({
     extensions: ['.ts', '.tsx'],
   },
   lib: [
-    {
-      bundle: false,
-      dts: true,
-      format: 'esm',
-      // autoExternal: true,
-      output: {
-        externals: [
-          'react',
-          'react-dom',
-          'react-native',
-        ]
-      }
-    },
     {
       bundle: false,
       dts: true,
